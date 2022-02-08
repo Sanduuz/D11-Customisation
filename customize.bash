@@ -8,7 +8,7 @@ run_as_user() {
     DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$_UID/bus su --whitelist-environment=DBUS_SESSION_BUS_ADDRESS - $NORMAL_USER -c "cd $(pwd) && $cmd"
 }
 
-NORMAL_USER="$(whoami)"
+NORMAL_USER="sanduuz"
 data_directory="DATA"
 
 if [ ! -e "$data_directory" ]; then
@@ -67,10 +67,10 @@ debsecan lsof apt-show-versions sshfs binwalk rlwrap pavucontrol \
 manpages-dev apt-mirror dislocker d-feet strace ltrace \
 binutils-multiarch libguestfs-tools chromium memtest86+ \
 tcpdump whois wireshark openvpn socat golang nano wget \
-tshark traceroute apt-transport-https python3-requests
+tshark traceroute apt-transport-https python3-requests tree
 
 echo "Installing Sublime Text"
-wget -q0 - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 apt -y update
 apt -y install sublime-text
