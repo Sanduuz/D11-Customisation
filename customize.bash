@@ -8,10 +8,15 @@ run_as_user() {
     DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$_UID/bus su --whitelist-environment=DBUS_SESSION_BUS_ADDRESS - $NORMAL_USER -c "cd $(pwd) && $cmd"
 }
 
-NORMAL_USER="sanduuz"
-data_directory="DATA"
+if [ "$1" ]; then
+    NORMAL_USER="$1"
+else
+    NORMAL_USER="sanduuz"
+fi
 
-if [ ! -e "$data_directory" ]; then
+DATA_DIRECTORY="DATA"
+
+if [ ! -d "$DATA_DIRECTORY" ]; then
     echo "ERROR: Directory 'DATA' does not exist." 1>&2
     exit 1
 fi
@@ -55,7 +60,7 @@ echo "Disabling sleeping on battery"
 run_as_user "dconf write /org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type \"'nothing'\""
 run_as_user "dconf write /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type \"'nothing'\""
 
-echo "Configuring wireshark for later"
+echo "Configuring WireShark"
 echo "wireshark-common wireshark-common/install-setuid boolean false" | debconf-set-selections
 
 echo "Installing other packages"
@@ -74,6 +79,16 @@ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 apt -y update
 apt -y install sublime-text
+
+echo "Installing Sublime Text plugins"
+python3 -m pip install flake8
+
+if [ ! -d "~$NORMAL_USER/.config" ]; then
+    echo "WARNING: ~$NORMAL_USER/.config directory does not exist. Creating..." 1>&2
+    mkdir ~$NORMAL_USER/.config
+fi
+
+# DO SUBLIME TEXT PLUGIN STUFF HERE
 
 echo "Disabling SSH"
 systemctl disable --now ssh
@@ -120,6 +135,8 @@ export HISTFILESIZE=5000000
 export HISTSIZE=100000
 
 alias la="ls -al"
+alias grep="grep --color=auto"
+alias less="less -r"
 bind '"\C-H": backward-kill-word'
 bind '"\t": menu-complete'
 bind "set show-all-if-ambiguous on"
@@ -136,5 +153,10 @@ set constantshow
 set softwrap
 set linenumbers
 
-bind ^H cutwordleft main
+bind ^H chopwordleft main
+EOF
+
+echo "Modifying .dircolors"
+run_as_user tee -a ~$NORMAL_USER/.dircolors <<EOF
+DIR 01;94
 EOF

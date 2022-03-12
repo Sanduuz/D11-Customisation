@@ -1,0 +1,19 @@
+// SublimeLinter Settings - User
+{
+    "lint_mode": "background",
+    "debug": false,
+    "linters": {
+        "flake8": {
+            "@disable": false,
+            "args": "--ignore E501",
+            "executable": "$HOME/.local/bin/flake8",
+            "builtins": "",
+            "python": 3,
+            "excludes": [],
+            "ignore": "",
+            "max-complexity": 10,
+            "max-line-length": null,
+            "select": ""
+        }
+    }
+}
