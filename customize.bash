@@ -174,6 +174,7 @@ run_as_user tee -a ~$NORMAL_USER/.ssh/config <<EOF
 host *
     controlmaster auto
     controlpath ~/.ssh/cm_socket/ssh-%r@%h:%p
+    serveraliveinterval 60
 EOF
 
 echo "Installing Python Exploit Development Assistance for GDB"
