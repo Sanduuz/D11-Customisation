@@ -45,7 +45,7 @@ def copy_user_configs(src_directory: str, dst_directory: str,
 
 
 if __name__ == "__main__":
-    print(f"[*] Getting SublimeText configuration root path...")
+    print("[*] Getting SublimeText configuration root path...")
     st_config_root_path = get_config_path()
     print(f"[+] Got SublimeText configuration root path: {st_config_root_path}")
     
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     ({packages_path}, {settings_path}")
     check_and_create_directory(packages_path)
     check_and_create_directory(settings_path)
-    print(f"[+] Done")
+    print("[+] Done")
 
     print("[*] Installing package control...")
     install_package_control(st_config_root_path)
