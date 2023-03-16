@@ -14,15 +14,15 @@ else
     NORMAL_USER="sanduuz"
 fi
 
+if [ "$UID" != "0" ]; then
+    echo "This tool needs to be run as root!" 1>&2
+    exit 1
+fi
+
 DATA_DIRECTORY="DATA"
 
 if [ ! -d "$DATA_DIRECTORY" ]; then
     echo "ERROR: Directory 'DATA' does not exist." 1>&2
-    exit 1
-fi
-
-if [ "$UID" != "0" ]; then
-    echo "This tool needs to be run as root!" 1>&2
     exit 1
 fi
 
@@ -73,7 +73,7 @@ manpages-dev apt-mirror dislocker d-feet strace ltrace \
 binutils-multiarch libguestfs-tools chromium memtest86+ \
 tcpdump whois wireshark openvpn socat golang nano wget \
 tshark traceroute apt-transport-https python3-requests \
-tree pass gdb
+tree pass gdb axel
 
 echo "Installing Sublime Text"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
@@ -182,3 +182,13 @@ fi
 
 run_as_user git clone https://github.com/longld/peda.git ~/bin/peda
 echo "source ~/bin/peda/peda.py" >> ~$NORMAL_USER/.gdbinit
+
+echo "Installing volatility3"
+python3 -m pip install $DATA_DIRECTORY/wheels/volatility3-2.4.0-py3-none-any.whl
+ln -s /usr/local/bin/vol /usr/local/bin/volatility3
+
+echo "Installing volatility2"
+run_as_user unzip -d ~$NORMAL_USER/bin/ $DATA_DIRECTORY/volatility_2.6_lin64_standalone.zip
+ln -s ~$NORMAL_USER/bin/volatility_2.6_lin64_standalone/volatility_2.6_lin64_standalone /usr/local/bin/volatility2
+
+echo "It is now recommended to restart your computer."
