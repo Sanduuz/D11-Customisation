@@ -75,6 +75,9 @@ tcpdump whois wireshark openvpn socat golang nano wget \
 tshark traceroute apt-transport-https python3-requests \
 tree pass gdb axel
 
+echo "Installing python modules"
+python3 -m pip install requests flake8
+
 echo "Installing Sublime Text"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
@@ -82,14 +85,13 @@ apt -y update
 apt -y install sublime-text
 
 echo "Installing Sublime Text plugins"
-python3 -m pip install flake8
-
 if [ ! -d "~$NORMAL_USER/.config" ]; then
     echo "WARNING: ~$NORMAL_USER/.config directory does not exist. Creating..." 1>&2
     mkdir ~$NORMAL_USER/.config
 fi
 
-# DO SUBLIME TEXT PLUGIN STUFF HERE
+echo "Running st_helper.py"
+python3 helpers/st_helper.py
 
 echo "Disabling SSH"
 systemctl disable --now ssh
