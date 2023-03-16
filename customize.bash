@@ -72,7 +72,8 @@ debsecan lsof apt-show-versions sshfs binwalk rlwrap pavucontrol \
 manpages-dev apt-mirror dislocker d-feet strace ltrace \
 binutils-multiarch libguestfs-tools chromium memtest86+ \
 tcpdump whois wireshark openvpn socat golang nano wget \
-tshark traceroute apt-transport-https python3-requests tree pass
+tshark traceroute apt-transport-https python3-requests \
+tree pass gdb
 
 echo "Installing Sublime Text"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
@@ -162,7 +163,6 @@ DIR 01;94
 EOF
 
 echo "Adding SSH ControlMaster to SSH config"
-
 if [ ! -d "~$NORMAL_USER/.ssh/cm_socket" ]; then
     echo "WARNING: ~$NORMAL_USER/.ssh/cm_socket directory does not exist. Creating..." 1>&2
     mkdir -p ~$NORMAL_USER/.ssh/cm_socket
@@ -173,3 +173,12 @@ host *
     controlmaster auto
     controlpath ~/.ssh/cm_socket/ssh-%r@%h:%p
 EOF
+
+echo "Installing Python Exploit Development Assistance for GDB"
+if [ ! -d "~$NORMAL_USER/bin" ]; then
+    echo "WARNING: ~$NORMAL_USER/bin directory does not exist. Creating..." 1>&2
+    mkdir -p ~$NORMAL_USER/bin
+fi
+
+run_as_user git clone https://github.com/longld/peda.git ~/bin/peda
+echo "source ~/bin/peda/peda.py" >> ~$NORMAL_USER/.gdbinit
