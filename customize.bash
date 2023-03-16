@@ -160,3 +160,16 @@ echo "Modifying .dircolors"
 run_as_user tee -a ~$NORMAL_USER/.dircolors <<EOF
 DIR 01;94
 EOF
+
+echo "Adding SSH ControlMaster to SSH config"
+
+if [ ! -d "~$NORMAL_USER/.ssh/cm_socket" ]; then
+    echo "WARNING: ~$NORMAL_USER/.ssh/cm_socket directory does not exist. Creating..." 1>&2
+    mkdir -p ~$NORMAL_USER/.ssh/cm_socket
+fi
+
+run_as_user tee -a ~$NORMAL_USER/.ssh/config <<EOF
+host *
+    controlmaster auto
+    controlpath ~/.ssh/cm_socket/ssh-%r@%h:%p
+EOF
