@@ -8,6 +8,7 @@
         "Jedi - Python autocompletion",
         "LiveReload",
         "MarkdownPreview",
+        "MoveTab",
         "Package Control",
         "SublimeLinter",
         "SublimeLinter-flake8"
