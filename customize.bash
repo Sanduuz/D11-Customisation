@@ -183,7 +183,7 @@ if [ ! -d "~$NORMAL_USER/bin" ]; then
     mkdir -p ~$NORMAL_USER/bin
 fi
 
-run_as_user git clone https://github.com/longld/peda.git ~/bin/peda
+run_as_user git clone https://github.com/longld/peda.git ~$NORMAL_USER/bin/peda
 echo "source ~/bin/peda/peda.py" >> ~$NORMAL_USER/.gdbinit
 
 echo "Installing volatility3"
