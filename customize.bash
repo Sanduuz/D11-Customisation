@@ -87,7 +87,7 @@ apt -y install sublime-text
 echo "Installing Sublime Text plugins"
 if [ ! -d "~$NORMAL_USER/.config" ]; then
     echo "WARNING: ~$NORMAL_USER/.config directory does not exist. Creating..." 1>&2
-    mkdir ~$NORMAL_USER/.config
+    mkdir -p ~$NORMAL_USER/.config
 fi
 
 echo "Running st_helper.py"
