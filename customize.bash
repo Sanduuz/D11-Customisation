@@ -192,6 +192,6 @@ ln -s /usr/local/bin/vol /usr/local/bin/volatility3
 
 echo "Installing volatility2"
 run_as_user unzip -d ~$NORMAL_USER/bin/ $DATA_DIRECTORY/volatility_2.6_lin64_standalone.zip
-ln -s ~$NORMAL_USER/bin/volatility_2.6_lin64_standalone/volatility_2.6_lin64_standalone /usr/local/bin/volatility2
+ln -s /home/$NORMAL_USER/bin/volatility_2.6_lin64_standalone/volatility_2.6_lin64_standalone /usr/local/bin/volatility2
 
 echo "It is now recommended to restart your computer."
