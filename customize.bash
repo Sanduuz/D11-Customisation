@@ -165,9 +165,9 @@ DIR 01;94
 EOF
 
 echo "Adding SSH ControlMaster to SSH config"
-if [ ! -d "~$NORMAL_USER/.ssh/cm_socket" ]; then
-    echo "WARNING: ~$NORMAL_USER/.ssh/cm_socket directory does not exist. Creating..." 1>&2
-    mkdir -p ~$NORMAL_USER/.ssh/cm_socket
+if [ ! -d "/home/$NORMAL_USER/.ssh/cm_socket" ]; then
+    echo "WARNING: /home/$NORMAL_USER/.ssh/cm_socket directory does not exist. Creating..." 1>&2
+    run_as_user mkdir -p /home/$NORMAL_USER/.ssh/cm_socket
 fi
 
 run_as_user tee -a ~$NORMAL_USER/.ssh/config <<EOF
