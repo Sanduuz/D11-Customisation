@@ -73,10 +73,10 @@ manpages-dev apt-mirror dislocker d-feet strace ltrace \
 binutils-multiarch libguestfs-tools chromium memtest86+ \
 tcpdump whois wireshark openvpn socat golang nano wget \
 tshark traceroute apt-transport-https python3-requests \
-tree pass gdb axel python3-flake8 cmake
+tree pass gdb axel cmake
 
 echo "Installing python modules"
-python3 -m pip install requests
+python3 -m pip install requests flake8
 
 echo "Installing Sublime Text"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
