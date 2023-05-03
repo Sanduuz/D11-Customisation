@@ -6,7 +6,7 @@
         "flake8": {
             "@disable": false,
             "args": "--ignore E501",
-            "executable": "/usr/local/bin/flake8",
+            "executable": "~/.local/bin/flake8",
             "builtins": "",
             "python": 3,
             "excludes": [],
