@@ -73,10 +73,10 @@ manpages-dev apt-mirror dislocker d-feet strace ltrace \
 binutils-multiarch libguestfs-tools chromium memtest86+ \
 tcpdump whois wireshark openvpn socat golang nano wget \
 tshark traceroute apt-transport-https python3-requests \
-tree pass gdb axel python3-flake8
+tree pass gdb axel python3-flake8 cmake
 
 echo "Installing python modules"
-python3 -m pip install requests flake8
+python3 -m pip install requests
 
 echo "Installing Sublime Text"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
@@ -85,9 +85,9 @@ apt -y update
 apt -y install sublime-text
 
 echo "Installing Sublime Text plugins"
-if [ ! -d "~$NORMAL_USER/.config" ]; then
-    echo "WARNING: ~$NORMAL_USER/.config directory does not exist. Creating..." 1>&2
-    mkdir -p ~$NORMAL_USER/.config
+if [ ! -d "/home/$NORMAL_USER/.config" ]; then
+    echo "WARNING: /home/$NORMAL_USER/.config directory does not exist. Creating..." 1>&2
+    mkdir -p /home/$NORMAL_USER/.config
 fi
 
 echo "Running st_helper.py"
@@ -132,7 +132,7 @@ run_as_user git config --global user.name "Sanduuz"
 run_as_user git config --global user.email "sanduuz@iki.fi"
 
 echo "Modifying .bashrc"
-run_as_user tee -a ~$NORMAL_USER/.bashrc <<EOF
+run_as_user tee -a /home/$NORMAL_USER/.bashrc <<EOF
 export HISTTIMEFORMAT="%F %T "
 export HISTFILESIZE=5000000
 export HISTSIZE=100000
@@ -147,7 +147,7 @@ bind "set menu-complete-display-prefix on"
 EOF
 
 echo "Modifying .nanorc"
-run_as_user tee -a ~$NORMAL_USER/.nanorc <<EOF
+run_as_user tee -a /home/$NORMAL_USER/.nanorc <<EOF
 include /usr/share/nano/*.nanorc
 
 set tabsize 4
@@ -160,7 +160,7 @@ bind ^H chopwordleft main
 EOF
 
 echo "Modifying .dircolors"
-run_as_user tee -a ~$NORMAL_USER/.dircolors <<EOF
+run_as_user tee -a /home/$NORMAL_USER/.dircolors <<EOF
 DIR 01;94
 EOF
 
@@ -170,7 +170,7 @@ if [ ! -d "/home/$NORMAL_USER/.ssh/cm_socket" ]; then
     run_as_user mkdir -p /home/$NORMAL_USER/.ssh/cm_socket
 fi
 
-run_as_user tee -a ~$NORMAL_USER/.ssh/config <<EOF
+run_as_user tee -a /home/$NORMAL_USER/.ssh/config <<EOF
 host *
     controlmaster auto
     controlpath ~/.ssh/cm_socket/ssh-%r@%h:%p
@@ -178,20 +178,20 @@ host *
 EOF
 
 echo "Installing Python Exploit Development Assistance for GDB"
-if [ ! -d "~$NORMAL_USER/bin" ]; then
-    echo "WARNING: ~$NORMAL_USER/bin directory does not exist. Creating..." 1>&2
-    mkdir -p ~$NORMAL_USER/bin
+if [ ! -d "/home/$NORMAL_USER/bin" ]; then
+    echo "WARNING: /home/$NORMAL_USER/bin directory does not exist. Creating..." 1>&2
+    mkdir -p /home/$NORMAL_USER/bin
 fi
 
-run_as_user git clone https://github.com/longld/peda.git ~$NORMAL_USER/bin/peda
-echo "source ~/bin/peda/peda.py" >> ~$NORMAL_USER/.gdbinit
+run_as_user git clone https://github.com/longld/peda.git /home/$NORMAL_USER/bin/peda
+echo "source ~/bin/peda/peda.py" >> /home/$NORMAL_USER/.gdbinit
 
 echo "Installing volatility3"
 python3 -m pip install $DATA_DIRECTORY/wheels/volatility3-2.4.0-py3-none-any.whl
 ln -s /usr/local/bin/vol /usr/local/bin/volatility3
 
 echo "Installing volatility2"
-run_as_user unzip -d ~$NORMAL_USER/bin/ $DATA_DIRECTORY/volatility_2.6_lin64_standalone.zip
+run_as_user unzip -d /home/$NORMAL_USER/bin/ $DATA_DIRECTORY/volatility_2.6_lin64_standalone.zip
 ln -s /home/$NORMAL_USER/bin/volatility_2.6_lin64_standalone/volatility_2.6_lin64_standalone /usr/local/bin/volatility2
 
 echo "It is now recommended to restart your computer."
