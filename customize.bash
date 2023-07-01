@@ -87,7 +87,7 @@ apt -y install sublime-text
 echo "Installing Sublime Text plugins"
 if [ ! -d "/home/$NORMAL_USER/.config" ]; then
     echo "WARNING: /home/$NORMAL_USER/.config directory does not exist. Creating..." 1>&2
-    mkdir -p /home/$NORMAL_USER/.config
+    run_as_user mkdir -p /home/$NORMAL_USER/.config
 fi
 
 echo "Running st_helper.py"
@@ -180,7 +180,7 @@ EOF
 echo "Installing Python Exploit Development Assistance for GDB"
 if [ ! -d "/home/$NORMAL_USER/bin" ]; then
     echo "WARNING: /home/$NORMAL_USER/bin directory does not exist. Creating..." 1>&2
-    mkdir -p /home/$NORMAL_USER/bin
+    run_as_user mkdir -p /home/$NORMAL_USER/bin
 fi
 
 run_as_user git clone https://github.com/longld/peda.git /home/$NORMAL_USER/bin/peda
